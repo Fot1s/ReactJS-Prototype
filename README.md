@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# A SportsBook ReactJS prototype
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Demo Available here: http://phinnovation.000webhostapp.com/react-prototype/sportsbook/
 
-## Available Scripts
+## Quick Description
 
-In the project directory, you can run:
+A number of components can be found in src/components/
 
-### `npm start`
+All logic is kept at SportsBookContainer.js which contains a Header and GamesList component.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The GamesList component adds a number of GameItem components that finally contain three Bet1x2 components responsible for showing the bet multipliers for a home win , draw, or away win.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+On user click the Bet1x2 component propagates the even up to to the SportsBookContainer which shows in an alert the bet the user clicked.
 
-### `npm test`
+A number of checks are made there that the bet is still available and that the multiplier has not changed between user interaction and now.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The initial data are fetched (as a json array ) from here:
 
-### `npm run build`
+http://phinnovation.000webhostapp.com/react-prototype/sportsbook/backend/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The structure of each item/game is:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+{
+  "id":1,
+  "live": 1,                //1 for live or 0
+  "time": 420,              //set when live
+  "date": "",               //future date when live 0
+  "home": "Olympiakos",
+  "away": "Panathinaikos",
+  "home_goals":1,
+  "away_goals":0,
+  "bet_1": 105,
+  "bet_x": 155,
+  "bet_2": 230
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+time is in seconds
+bet multipliers are sent as integers to avoid floating point issues/comparisons
 
-### `npm run eject`
+When displayed they are divided by 100 and shown with 2 decimal places
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+A wait loading message is shown while initially waiting for data and then the GamesList component is used.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+As soon as the server data are here, a websocket is opened to the echo service here:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+wss://echo.websocket.org
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+and every 15 seconds we grab a random live game, update one of each 1,x,2 multipliers and send it to the echo server to emulate a real server sending new live data.
 
-## Learn More
+As soon as the data is back, we update the state of the react app in order to show the changed data.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The new multiplier/bet becomes green for 5 seconds so the user can see that a bet changed.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app is responsive but not much time was spent on the visual/css side of the app. It can become better :)
 
-### Code Splitting
+## Some screens:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Initial View:
 
-### Analyzing the Bundle Size
+![Screens of the app](images/initial.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### New bet multiplier received:
 
-### Making a Progressive Web App
+![Screens of the app](images/newbet.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### User click on a game:
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Screens of the app](images/click.png)
