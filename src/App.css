@@ -1,38 +1,70 @@
-.App {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.4;
+  color: #1f1f1f;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.game-item {
+  list-style-type: none;
+  padding: 15px 2px;
+  border-bottom: 1px solid #eaeaea;
+  display: flex ;
+  flex-flow: row wrap;
+}
+
+.game-time-date {
+  padding: 5px 5px;
+  flex:2 ;
+}
+
+.game-teams{
+  padding: 5px 5px;
+  flex:3 ;
+}
+
+.game-goals {
+  padding: 5px 5px;
+  flex:1 ;
+}
+
+.game-bet-button {
+  flex:2 ;
+  background: #333333;
+  color: #FFF;
+  padding: 15px 10px;
+  cursor: pointer;
+  float: right;
+  outline: none;
   text-align: center;
+  border-radius: 5px;
+  border: 2px solid #000000;
+  margin-left: 2px ;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.game-bet-1x2 {
+  float:left ;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.game-bet-multi {
+  color: #FFFF99;
+  float:right ;
+  font-weight: bold;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.game-bet-multi-updated {
+  color: #32CD32;
+  float:right ;
+  font-weight: bold;
 }
