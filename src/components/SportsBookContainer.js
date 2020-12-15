@@ -116,9 +116,9 @@ class SportsBookContainer extends React.Component {
       const updatedBet = JSON.parse(evt.data)
       //find the correct game by id and update its bets
 
-      let i ;
-      for (i = 0; i < this.state.games.length; i++) {
-        let game = this.state.games[i]
+      for (let i = 0; i < this.state.games.length; i++) {
+        const game = this.state.games[i]
+
         if (game.id === updatedBet.id) {
           //no else if, in the feature we might update multiple bets here ;)
           if (updatedBet.bet_1) {
@@ -152,7 +152,7 @@ class SportsBookContainer extends React.Component {
   }
 
   updateLiveGameMultiplier = () => {
-    let liveGames = []
+    const liveGames = []
 
     this.state.games.forEach((game) => {
       if (game.live === 1) {
@@ -164,13 +164,13 @@ class SportsBookContainer extends React.Component {
       const gameIndex = this.getRandomInt(0,liveGames.length-1)
       const game = this.state.games[gameIndex]
 
-      let gameToSendData = {}
+      const gameToSendData = {}
       gameToSendData.id = game.id
 
       //which multi to update 1 x or 2 (0,1,2)
-      let updateMulti = this.getRandomInt(0,2)
+      const updateMulti = this.getRandomInt(0,2)
 
-      let howMuchToChange = this.getRandomInt(-5,5)
+      const howMuchToChange = this.getRandomInt(-5,5)
 
       if (updateMulti === 0) {
         gameToSendData.bet_1 = game.bet_1 + howMuchToChange

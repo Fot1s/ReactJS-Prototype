@@ -36,10 +36,10 @@ The structure of each item/game is:
 }
 ```
 
-time is in seconds
-bet multipliers are sent as integers to avoid floating point issues/comparisons
+time is in seconds.
+bet multipliers are sent as integers to avoid floating point issues/comparisons.
 
-When displayed they are divided by 100 and shown with 2 decimal places
+When displayed they are divided by 100 and shown with 2 decimal places.
 
 A wait loading message is shown while initially waiting for data and then the GamesList component is used.
 
